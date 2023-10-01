@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block extra_css %}
+<style>
+  /* Style for the count-box container */
+  .count-box {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 100%; /* Set a fixed height for uniformity */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+  }
+  
+  /* Style for the icon */
+  .count-box i {
+    font-size: 36px;
+    color: #ff9900;
+  }
+{% comment %} for text part {% endcomment %}
+  .custom-style {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  /* Style for the counter number */
+  .purecounter {
+    font-size: 48px;
+    color: #333;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  /* Style for the title */
+  .count-box p:first-child {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px; /* Add some spacing between title and description */
+  }
+  
+  /* Style for the section description */
+  .count-box p:last-child {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px; /* Add some spacing between title and description */
+  }
+  
+  /* Hover effect */
+  .count-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  /* Style for the count-box title */
+.count-box p:first-child {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 5px; /* Add some spacing between title and description */
+  transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for smooth animation */
+}
+
+/* Style for the section description */
+.count-box p:last-child {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px; /* Add some spacing between title and description */
+  transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for smooth animation */
+}
+
+/* Hover effect for text */
+.count-box:hover p:first-child,
+.count-box:hover p:last-child {
+  color: #ff9900; /* Change text color on hover */
+  font-size: 22px; /* Change font size on hover */
+}
+
+</style>
+{% endblock extra_css %}
+{% block content %}
+  <!-- ======= Facts Section ======= -->
+  <section id="facts" class="facts">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Facts</h2>
+        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      </div>
+
+      <div class="row">
+
+        {% comment %} <div class="col-lg-3 col-md-6">
+          <div class="count-box">
+            <i class="bi bi-emoji-smile"></i>
+            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Happy Clients</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+          <div class="count-box">
+            <i class="bi bi-journal-richtext"></i>
+            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Projects</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box">
+            <i class="bi bi-headset"></i>
+            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Hours Of Support</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box">
+            <i class="bi bi-award"></i>
+            <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Awards</p>
+          </div>
+        </div> {% endcomment %}
+        {% for count in counts  %}
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box">
+            <i class="bi bi-award"></i>
+            <span data-purecounter-start="0" data-purecounter-end="{{count.count}}" data-purecounter-duration="1" class="purecounter"></span>
+            <p>{{count.title}}</p>
+            <p class="custom-style" >{{count.section.section_description |safe }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </section><!-- End Facts Section -->
+
+  <!-- ======= Skills Section ======= -->
+  <section id="skills" class="skills section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Skills</h2>
+        <p>Below, you will find a selection of skills with which I am proficient and capable of working:</p>
+      </div>
+
+      <div class="row skills-content">
+
+          <div class="col-lg-6">
+
+        
+            {% for skill in skills|slice:":3" %}
+        
+            <div class="progress">
+                <span class="skill">{{skill.skill_known.name}}<i class="val">{{skill.known_per}}%</i></span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{skill.known_per}}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+    
+              {% endfor %}
+    
+        </div> 
+
+         <div class="col-lg-6">
+        {% for skill in skills|slice:"3:" %}
+        
+        <div class="progress">
+            <span class="skill">{{skill.skill_known.name}}<i class="val">{{skill.known_per}}%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="{{skill.known_per}}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          {% endfor %}
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Skills Section -->
+
+  <!-- ======= Resume Section ======= -->
+  <section id="resume" class="resume">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Resume</h2>
+        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h3 class="resume-title">Sumary</h3>
+          <div class="resume-item pb-0">
+            <h4>Brandon Johnson</h4>
+            <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
+            <ul>
+              <li>Portland par 127,Orlando, FL</li>
+              <li>(123) 456-7891</li>
+              <li>alice.barkley@example.com</li>
+            </ul>
+          </div>
+
+          <h3 class="resume-title">Education</h3>
+          <div class="resume-item">
+            <h4>Master of Fine Arts &amp; Graphic Design</h4>
+            <h5>2015 - 2016</h5>
+            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
+            <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
+          </div>
+          <div class="resume-item">
+            <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
+            <h5>2010 - 2014</h5>
+            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
+            <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="resume-title">Professional Experience</h3>
+          <div class="resume-item">
+            <h4>Senior graphic design specialist</h4>
+            <h5>2019 - Present</h5>
+            <p><em>Experion, New York, NY </em></p>
+            <ul>
+              <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
+              <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
+              <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
+              <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+            </ul>
+          </div>
+          <div class="resume-item">
+            <h4>Graphic design specialist</h4>
+            <h5>2017 - 2018</h5>
+            <p><em>Stepping Stone Advertising, New York, NY</em></p>
+            <ul>
+              <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
+              <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
+              <li>Recommended and consulted with clients on the most appropriate graphic design</li>
+              <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Resume Section -->
+  {% block extra_js %}
+  <script src="link-to-your-javascript-library.js"></script>
+  <script>
+    // Initialize PureCounter
+    var counters = document.querySelectorAll('.purecounter');
+    counters.forEach(counter => {
+        var start = parseInt(counter.getAttribute('data-purecounter-start'));
+        var end = parseInt(counter.getAttribute('data-purecounter-end'));
+        var duration = parseInt(counter.getAttribute('data-purecounter-duration'));
+    
+        var range = end - start;
+        var increment = end > start ? 1 : -1;
+        var stepTime = Math.abs(Math.floor(duration / range));
+    
+        var timer = setInterval(function () {
+            start += increment;
+            counter.textContent = start;
+            if (start == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    });
+    /* Animation for count-box on page load */
+    var countBoxes = document.querySelectorAll('.count-box');
+    countBoxes.forEach(box => {
+      box.style.animation = 'openBox 1s ease';
+    });
+  
+    function openBox() {
+      box.style.transform = 'scaleY(1)';
+    }
+  </script>
+  {% endblock extra_js %}
+
+{% endblock content %}
