@@ -48,7 +48,7 @@ class About(models.Model):
         years = delta.days // 365
         return years
     def __str__(self):
-        return f"{str(self.age)} { self.email}"
+        return f"{str(self.age)}     {self.name}"
     
 # skills I know
 class Skill(models.Model):
@@ -107,3 +107,12 @@ class Service(models.Model):
     
     def __str__(self):
         return f" {self.service_name}  {self.get_service_type_display()}"
+
+# for resumee section
+
+class Summary_sec(models.Model):
+    about_sum=models.ForeignKey(About,on_delete=models.CASCADE)
+    short_intro=RichTextField(default="")
+    
+    def __str__(self):
+        return f"{self.about_sum.name}  {self.about_sum.email}  {self.about_sum.phone}  "

@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from . models import Contact,About,Skill,SkillChoice,Counter,CounterSection,Service
+from .models import Summary_sec
 from django.contrib import messages
 # Create your views here.
 def home(request):
@@ -54,8 +55,15 @@ def service(request):
 def skills(request):
     return render(request,'main/skills.html')
 
+
+
+# resumee modifaction
 def resumee(request):
-    return render(request,'main/resumee.html')
+    summary=Summary_sec.objects.get(id=3)
+    context={
+        'summary':summary
+    }
+    return render(request,'main/resumee.html',context)
 
 def service_detail(request,id):
     service_details=Service.objects.get(id=id)
