@@ -1,13 +1,14 @@
 from django.contrib import admin
-from .models import Contact,About,Skill,SkillChoice,Counter,CounterSection,Service,Summary_sec
-# from .models import Contact,About,Skill,SkillChoice
 from django.utils.html import format_html
-# Register your models here
+from .models import Contact,About,Skill,SkillChoice,Counter,CounterSection,Service,Summary_sec
+from .models import EduDetail,EduCollege
+from .models import ProfessionalWork,Pro_detail
+
 admin.site.site_header="Portfolio"
 admin.site.register(Skill)
 admin.site.register(CounterSection)
-# admin.site.register(Summary_sec)
-
+admin.site.register(EduCollege)
+admin.site.register(ProfessionalWork)
 
 
 @admin.register(SkillChoice)
@@ -66,4 +67,67 @@ class Summary_sec(admin.ModelAdmin):
     about_name.short_description = 'Name'
     about_email.short_description = 'Email'
     about_phone.short_description = 'Phone'
+    
+    
+# eduaction section
+# @admin.register(edu_details)
+@admin.register(EduDetail)
+class EducationAdmin(admin.ModelAdmin):
+    list_display=['id','clg_name','clg_add','study_course','started_year','passed_year']
+    list_display_links=['clg_name']
+    search_fields=['clg_name','clg_add']
+    list_filter=['clg_name']
+    
+    def clg_name(self,obj):
+        return obj.clg_name.clg_name
+    
+    def clg_add(self,obj):
+        return obj.clg_name.clg_add
+    
+    def study_course(self,obj):
+        return obj.clg_name.study_course
+    
+    
+    def started_year(self,obj):
+        return obj.started_year
+    
+    def passed_year(self,obj):
+        return obj.passed_year
+    
+    clg_name.short_description="College Name" 
+    clg_add.short_description ="Location"
+    study_course.short_description="Course" 
+    started_year.short_description="Start Year" 
+    passed_year.short_description="Pass Year" 
+    
+
+@admin.register(Pro_detail)
+class Professional(admin.ModelAdmin):
+    list_display=['id','Job_title','company_name','Job_location','started','end']
+    list_display_links=['Job_title']
+    search_fields=['Job_title','Job_location']
+    # list_filter=['Job_title']
+    
+    def Job_title(self,obj):
+        return obj.title.post
+    
+    
+    def company_name(self,obj):
+        return obj.company_name
+    
+    def Job_location(self,obj):
+        return obj.work_location 
+    
+    def started(self,obj):
+        return obj.work_start_date
+    
+    
+    def end(self,obj):
+        return obj.work_end_date
+    
+    Job_title.short_description="Job" 
+    company_name.short_description="Company" 
+    Job_location.short_description ="Address"
+    started.short_description="Start" 
+    end.short_description="End " 
     

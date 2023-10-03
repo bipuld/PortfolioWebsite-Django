@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from . models import Contact,About,Skill,SkillChoice,Counter,CounterSection,Service
+from .models import EduDetail
 from .models import Summary_sec
+from .models import ProfessionalWork,Pro_detail
+
 from django.contrib import messages
 # Create your views here.
 def home(request):
@@ -13,7 +16,7 @@ def home(request):
     return render(request,'main/home.html',context)
 
 def about(request):
-    details=About.objects.get(id=2)
+    details=About.objects.get(id=1)
     context={
         'detail':details
     }
@@ -59,9 +62,13 @@ def skills(request):
 
 # resumee modifaction
 def resumee(request):
-    summary=Summary_sec.objects.get(id=3)
+    summary=Summary_sec.objects.get(id=1)
+    eduation=EduDetail.objects.all()
+    profession=Pro_detail.objects.all()
     context={
-        'summary':summary
+        'summary':summary,
+        'education':eduation,
+        'profession':profession
     }
     return render(request,'main/resumee.html',context)
 

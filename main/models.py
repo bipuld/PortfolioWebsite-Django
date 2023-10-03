@@ -3,7 +3,6 @@ from ckeditor.fields import RichTextField
 from django.utils import timezone
 from datetime import datetime
 from django.core.validators import MinValueValidator, MaxValueValidator
-
 # Assuming value is a string in ISO 8601 format
 # value = "2023-09-28T15:30:00+00:00"
 # dt = datetime.datetime.fromisoformat(value)
@@ -116,3 +115,54 @@ class Summary_sec(models.Model):
     
     def __str__(self):
         return f"{self.about_sum.name}  {self.about_sum.email}  {self.about_sum.phone}  "
+    
+    
+class EduCollege(models.Model):
+    # id=models.AutoField(primary_key=True,default)
+    id = models.AutoField(primary_key=True,default=True)
+
+    study_course=models.CharField(max_length=200,default="")
+    clg=models.CharField(max_length=150)
+    clg_add=models.CharField(max_length=200,default="")
+    
+    def __str__(self):
+        return self.clg
+
+class EduDetail(models.Model):
+    clg_name=models.ForeignKey(EduCollege,on_delete=models.CASCADE)   
+    started_year=models.PositiveIntegerField(
+        validators=[
+            MinValueValidator(2010),
+            MaxValueValidator(2999),
+            ]
+    )
+    passed_year=models.PositiveIntegerField(
+         validators=[
+            MinValueValidator(2010),
+            MaxValueValidator(2999),
+        ]
+    )
+    inf_edu=RichTextField()
+    
+    
+    def __str__(self):
+        return f"{self.id}.{self.clg_name.clg} {self.started_year} - {self.passed_year}"
+
+    
+class ProfessionalWork(models.Model):
+    post=models.CharField(verbose_name="YourPost",max_length=150)
+    
+    def __str__(self):
+        return self.post
+
+class Pro_detail(models.Model):
+    id = models.AutoField(primary_key=True)
+    title=models.ForeignKey(ProfessionalWork,on_delete=models.CASCADE)
+    company_name=models.CharField(max_length=200,default="")
+    work_start_date = models.IntegerField(default=0)  # You may want to set an appropriate default value
+    work_end_date = models.IntegerField(default=0)    # You may want to set an appropriate default value
+    work_location = models.CharField(max_length=150, default="")  # You can set a default empty string or another value
+    work_info = RichTextField()  # Assuming you're using CKEditor
+
+    def __str__(self):
+        return f"{self.title.post} {self.work_start_date} {self.work_location}"
