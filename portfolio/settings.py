@@ -66,14 +66,15 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE':'django.db.backends.postgresql',
-        'NAME':'portfolio',
+        'NAME':'railway',
         'USER':'postgres',
-        'PASSWORD':'12345',
-        'HOST':'Localhost'
+        'PASSWORD':'MOQsSLaIEGUTGudyOKJs',
+        'HOST':'containers-us-west-171.railway.app',
+        'PORT':'5700'
     }
     
 }
-DATABASES['default']:dj_database_url.config(config.DATABASE_URL)
+DATABASES['default']:dj_database_url.config()
 
 
 # Password validation
@@ -110,7 +111,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles',"staticfiles_build")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build",'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
