@@ -1,19 +1,25 @@
 from pathlib import Path
 import os
-from decouple import config
+from dotenv import load_dotenv
 import dj_database_url
+
+load_dotenv() #load environnement variable
+
+# from decouple import config
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.environ.get('DEBUG') == "True"
+# DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 
-ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh']
-
+ALLOWED_HOSTS = ['127.0.0.1']
+CSRF_TRUSTED_ORIGINS=[]
 
 # Application definition
 
@@ -23,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # 'whitenoise.runserver_nostatic', #whitenoise
     'django.contrib.staticfiles',
     'main',
     'ckeditor',
@@ -32,6 +39,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware' #whitenoise
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -64,17 +72,28 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default':{
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME':'railway',
-        'USER':'postgres',
-        'PASSWORD':'MOQsSLaIEGUTGudyOKJs',
-        'HOST':'containers-us-west-171.railway.app',
-        'PORT':'5700'
-    }
+    # 'default':{
+    #     'ENGINE':'django.db.backends.postgresql',
+    #     'NAME':'railway',
+    #     'USER':'postgres',
+    #     'HOST':'containers-us-west-171.railway.app',
+    #     'PORT':'5700'    
+    #     }
     
+    # 'default':dj_database_url.config()
+    #     default ="sqlite:///" + os.path.join('db.sqlite3')
+
+    
+ 'default':{
+        'ENGINE':'django.db.backends.postgresql',
+        'NAME':'portfolio',
+        'USER':'postgres',
+        'PASSWORD':'12345',
+        'HOST':'Localhost',
+        'PORT':'5432'
+    }
 }
-DATABASES['default']:dj_database_url.config()
+# DATABASES['default']:dj_database_url.config()
 
 
 # Password validation
@@ -110,8 +129,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build",'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
