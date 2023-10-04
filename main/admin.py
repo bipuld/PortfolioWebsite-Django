@@ -35,8 +35,12 @@ class AboutAdmin(admin.ModelAdmin):
 
 @admin.register(Counter)
 class Counter(admin.ModelAdmin):
-    list_display=['title','count']
+    list_display=['counter_id','title','count']
     list_display_link=['count']
+    
+    def counter_id(self,obj):
+        return obj.section.counter_id
+    counter_id.Short_description="Counter ID"
     
 @admin.register(Service)  
 class Service(admin.ModelAdmin):

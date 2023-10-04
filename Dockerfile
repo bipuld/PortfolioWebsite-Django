@@ -1,33 +1,26 @@
-# Use the official Python image with Python 3.6 as a base image
-FROM python:3.6
+# Use an official Python runtime as a parent image
+FROM python:3.9
 
-# Set environment variables
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_ENV dev
+# Set environment variables for your PostgreSQL database
+ENV DATABASE_URL="postgres://username:password@hostname:port/database_name"
 
-# Create a directory for your code in the container
-RUN mkdir /code
+# Set environment variable for Django's secret key (replace with your secret key)
+ENV DJANGO_SECRET_KEY="your-secret-key"
 
-# Set the working directory to /code
-WORKDIR /code
+# Set environment variable to indicate that this is a Docker environment
+ENV DOCKER_ENVIRONMENT=True
 
-# Copy your requirements.txt into the container at /code/
-COPY ./requirements.txt /code/requirements.txt
+# Set the working directory to /app
+WORKDIR /app
 
-# Install project dependencies
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-# Install Gunicorn for serving your Django application
-RUN pip install gunicorn
-
-# Copy the rest of your project files into the container
-COPY . /code/
-
-# Run Django migrations
-RUN python manage.py migrate
-
-# Expose the port that your Django application will run on (usually 8000)
+# Make port 8000 available to the world outside this container
 EXPOSE 8000
 
-# Specify the command to run your application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "your_project_name.wsgi:application"]
+# Define the command to run your application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

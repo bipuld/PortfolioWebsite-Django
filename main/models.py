@@ -27,7 +27,7 @@ class About(models.Model):
     profile=models.ImageField(upload_to="profile",)
     birthdate=models.DateField()
     website=models.URLField(max_length=200)
-    phone=models.CharField(max_length=10)
+    phone=models.CharField(max_length=15)
     city=models.CharField(max_length=150)
     country=models.CharField(max_length=150,default="")
     degree=models.CharField(max_length=50)
@@ -69,8 +69,8 @@ class SkillChoice(models.Model):
     
     
 class CounterSection(models.Model):
+    counter_id=models.AutoField(primary_key=True)
     section_description=RichTextField(default="")
-    
     def __str__(self):
         return self.section_description
     
@@ -119,7 +119,7 @@ class Summary_sec(models.Model):
     
 class EduCollege(models.Model):
     # id=models.AutoField(primary_key=True,default)
-    id = models.AutoField(primary_key=True,default=True)
+    id = models.AutoField(primary_key=True)
 
     study_course=models.CharField(max_length=200,default="")
     clg=models.CharField(max_length=150)

@@ -80,6 +80,52 @@
   font-size: 22px; /* Change font size on hover */
 }
 
+
+{% comment %} for the resume style {% endcomment %}
+  /* Add this CSS code to style the blue line */
+  .blue-line {
+    width: 100%;
+    height: 4px;
+    background-color: #007bff; /* Blue color */
+    margin-top: 20px;
+  }
+
+  /* Style for the section title */
+  .section-title h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  /* Style for resume titles */
+  .resume-title {
+    font-size: 24px;
+    color: #007bff; /* Blue color */
+    margin-top: 30px;
+  }
+
+  /* Style for resume items */
+  .resume-item h4 {
+    font-size: 20px;
+    margin-top: 15px;
+  }
+
+  .resume-item h5 {
+    font-size: 18px;
+    margin-top: 5px;
+    color: #6c757d; /* Gray color for dates */
+  }
+
+  .resume-item p {
+    font-size: 16px;
+  }
+
+  .resume-item ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    font-size: 16px;
+  }
+</style>
+
 </style>
 {% endblock extra_css %}
 {% block content %}
@@ -187,71 +233,66 @@
       </div>
 
     </div>
-  </section><!-- End Skills Section -->
-
+  </section>
+  <!-- End Skills Section -->
   <!-- ======= Resume Section ======= -->
   <section id="resume" class="resume">
     <div class="container" data-aos="fade-up">
-
       <div class="section-title">
         <h2>Resume</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-      </div>
+        <p>I am a dedicated and results-driven professional with a passion for IT industry. Over the years, I have honed my skills in development and have a proven track record of . With a keen eye for detail and a commitment to excellence, I thrive in dynamic environments and excel in development.</p>
 
+      </div>
+      <div class="blue-line"></div>
+  
       <div class="row">
         <div class="col-lg-6">
-          <h3 class="resume-title">Sumary</h3>
+          <h3 class="resume-title">Summary</h3>
           <div class="resume-item pb-0">
-            <h4>Brandon Johnson</h4>
-            <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
+            <h4>{{summary.about_sum.name}}</h4>
+            <p>{{summary.short_intro|safe}}</p>
             <ul>
-              <li>Portland par 127,Orlando, FL</li>
-              <li>(123) 456-7891</li>
-              <li>alice.barkley@example.com</li>
+              <li>{{summary.about_sum.city}}, Nepal</li>
+              <li>(+977) {{summary.about_sum.phone}}</li>
+              <li>{{summary.about_sum.email}}</li>
             </ul>
           </div>
-
+  
           <h3 class="resume-title">Education</h3>
+          {% for edu in education  %}
           <div class="resume-item">
-            <h4>Master of Fine Arts &amp; Graphic Design</h4>
-            <h5>2015 - 2016</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
-          </div>
-          <div class="resume-item">
-            <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
-            <h5>2010 - 2014</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-          </div>
+              <h4>{{edu.clg_name.study_course}}</h4>
+              <h5>{{edu.started_year}} - {{edu.passed_year}}</h5>
+              <p><em>{{edu.clg_name.clg_add}}</em></p>
+              <p>{{edu.inf_edu |safe}}</p>
+            </div>
+          {% endfor %}
         </div>
         <div class="col-lg-6">
           <h3 class="resume-title">Professional Experience</h3>
           <div class="resume-item">
-            <h4>Senior graphic design specialist</h4>
-            <h5>2019 - Present</h5>
-            <p><em>Experion, New York, NY </em></p>
-            <ul>
-              <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-              <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-              <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-              <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-            </ul>
+           {% for job in profession  %}
+             <h4>{{job.title.post}}</h4>
+             <h5>{{job.work_start_date}} - {% if job.work_end_date == 0 %}Present {% else %} {{job.work_end_date}}{% endif %}</h5>
+             <p><em>{{job.work_location}}, Nepal </em></p>
+             <ul>
+             {{job.work_info|safe}}
+              </ul>
+           {% endfor %}
           </div>
           <div class="resume-item">
-            <h4>Graphic design specialist</h4>
-            <h5>2017 - 2018</h5>
-            <p><em>Stepping Stone Advertising, New York, NY</em></p>
+            <h4>Communication Skills</h4>
+            {% comment %} <h5>2017 - 2018</h5>
+            <p><em>Stepping Stone Advertising, New York, NY</em></p> {% endcomment %}
             <ul>
-              <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-              <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-              <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-              <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+              <li>Roven ability to assess customer needs and deliver clear and effective solutions.</li>
+              <li>Solid understanding of customer service principles and processes </li>
+              <li>Skilled in handling challenging situations with tact and diplomacy</li>
+              <li>Experienced in effectively managing difficult customer interactions while achieving positive outcomes</li>
             </ul>
           </div>
         </div>
       </div>
-
     </div>
   </section><!-- End Resume Section -->
   {% block extra_js %}
