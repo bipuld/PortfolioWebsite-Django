@@ -1,21 +1,13 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import dj_database_url
-
+from decouple import config
 load_dotenv() #load environnement variable
 
-# from decouple import config
-# import dj_database_url
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-DEBUG = os.environ.get('DEBUG') == "True"
-# DEBUG = config('DEBUG', default=False, cast=bool)
-
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 ALLOWED_HOSTS = ['127.0.0.1']
@@ -29,17 +21,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'whitenoise.runserver_nostatic', #whitenoise
     'django.contrib.staticfiles',
     'main',
     'ckeditor',
-    # 'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware' #whitenoise
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,36 +57,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    # 'default':{
-    #     'ENGINE':'django.db.backends.postgresql',
-    #     'NAME':'railway',
-    #     'USER':'postgres',
-    #     'HOST':'containers-us-west-171.railway.app',
-    #     'PORT':'5700'    
-    #     }
-    
-    # 'default':dj_database_url.config()
-    #     default ="sqlite:///" + os.path.join('db.sqlite3')
 
-    
- 'default':{
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME':'portfolio',
-        'USER':'postgres',
-        'PASSWORD':'12345',
-        'HOST':'Localhost',
-        'PORT':'5432'
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='3306'),
     }
+    
+
 }
-# DATABASES['default']:dj_database_url.config()
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
