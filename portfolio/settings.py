@@ -7,16 +7,17 @@ from django.core.management.utils import get_random_secret_key
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-+oa#*%b@98v6%82=%$8*ibq*xi6bji=)cw)is2^isi8gw&aoi+'
 
-
-DEBUG=config('DEBUG',default=True,cast=bool)
+DEBUG=True
+# DEBUG=config('DEBUG',default=True,cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', default=False, cast=bool)
 
-# ALLOWED_HOSTS = ['bipulportfolio.azurewebsites.net']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -34,7 +35,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,16 +67,12 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 DATABASES = {
     
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER':'postgres',
-        'PASSWORD':config('DB_PASSWORD'),
-        'HOST':"Localhost" ,
-        'PORT':'5432' ,
-                
         
-    }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    
+}
     
 
 }
@@ -107,7 +104,7 @@ USE_TZ = True
 
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 STATIC_URL = '/static/'
