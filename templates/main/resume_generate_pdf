@@ -1,0 +1,56 @@
+<div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Resume</h2>
+      <p>I am a dedicated and results-driven professional with a passion for IT industry. Over the years, I have honed my skills in development and have a proven track record of . With a keen eye for detail and a commitment to excellence, I thrive in dynamic environments and excel in development.</p>
+    </div>
+    <div class="blue-line"></div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h3 class="resume-title">Summary</h3>
+        <div class="resume-item pb-0">
+          <h4>{{summary.about_sum.name}}</h4>
+          <p>{{summary.short_intro|safe}}</p>
+          <ul>
+            <li>{{summary.about_sum.city}}, Nepal</li>
+            <li>(+977) {{summary.about_sum.phone}}</li>
+            <li>{{summary.about_sum.email}}</li>
+          </ul>
+        </div>
+
+        <h3 class="resume-title">Education</h3>
+        {% for edu in education  %}
+        <div class="resume-item">
+            <h4>{{edu.clg_name.study_course}}</h4>
+            <h5>{{edu.started_year}} - {{edu.passed_year}}</h5>
+            <p><em>{{edu.clg_name.clg_add}}</em></p>
+            <p>{{edu.inf_edu |safe}}</p>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-lg-6">
+        <h3 class="resume-title">Professional Experience</h3>
+        <div class="resume-item">
+         {% for job in profession  %}
+           <h4>{{job.title.post}}</h4>
+           <h5>{{job.work_start_date}} - {% if job.work_end_date == 0 %}Present {% else %} {{job.work_end_date}}{% endif %}</h5>
+           <p><em>{{job.work_location}}, Nepal </em></p>
+           <ul>
+           {{job.work_info|safe}}
+            </ul>
+         {% endfor %}
+        </div>
+        <div class="resume-item">
+          <h4>Communication Skills</h4>
+          {% comment %} <h5>2017 - 2018</h5>
+          <p><em>Stepping Stone Advertising, New York, NY</em></p> {% endcomment %}
+          <ul>
+            <li>Roven ability to assess customer needs and deliver clear and effective solutions.</li>
+            <li>Solid understanding of customer service principles and processes </li>
+            <li>Skilled in handling challenging situations with tact and diplomacy</li>
+            <li>Experienced in effectively managing difficult customer interactions while achieving positive outcomes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

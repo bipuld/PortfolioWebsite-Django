@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{service_detail.service_name}}
+{% endblock title %}
+
+{% block content %}
+<div class="service-details">
+  <h4 class="animated bounceIn" id="typed-text"></h4>
+  <img src="{{ service_detail.service_img.url }}" alt="img" class="animated fadeIn" id="service-image">
+  <div class="text-container">
+    <p>{{ service_detail.service_desc }}</p>
+  </div>
+</div>
+
+<!-- Include Typed.js JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<script>
+  // JavaScript for text animation
+  document.addEventListener("DOMContentLoaded", function () {
+    const serviceName = "{{ service_detail.service_name }}"; // Get the service name
+    const typed = new Typed("#typed-text", {
+      strings: [serviceName], // Use the service name in the animation
+      typeSpeed: 50, // Typing speed in milliseconds
+      backSpeed: 25, // Backspacing speed in milliseconds
+      backDelay: 1000, // Delay before starting to backspace
+      showCursor: false, // Show blinking cursor
+      cursorChar: "|", // Cursor character
+      loop: true, // Set to true for continuous loop
+    });
+  });
+</script>
+
+<style>
+/* Custom CSS */
+.service-details {
+  text-align: center;
+  margin: 20px;
+}
+
+h4 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+img#service-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px; /* Set a maximum height for the image */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px auto; /* Center-align the image horizontally */
+  display: block; /* Ensure the image is a block element for margin to work */
+}
+
+.text-container {
+  text-align: left; /* Left-align text within the container */
+  max-width: 800px; /* Set a maximum width for the text content */
+  margin: 0 auto; /* Center-align the container horizontally */
+  padding: 20px; /* Add some padding for readability */
+}
+
+p {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+</style>
+{% endblock content %}

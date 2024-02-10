@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Contact
+{% endblock title %}
+{% block content %}
+ {% comment %} css {% endcomment %}
+ <style>
+  /* Style for the container div */
+  .button-container {
+      text-align: center;
+      margin-top: 20px;
+  }
+
+  /* Style for the submit button */
+  .submit-button {
+      background-color: #007BFF; /* Change the background color as needed */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Add a smooth transition effect on hover */
+  }
+
+  /* Style for the submit button on hover */
+  .submit-button:hover {
+      background-color: #0056b3; /* Change the hover background color as needed */
+  }
+</style>
+ <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+        </div>
+
+        <div class="row mt-1">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>{{detail.city}},{{detail.country}}</p>
+              </div> 
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>{{detail.email}}</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+977 {{detail.phone}}</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="{% url 'contact' %}" method="POST" role="form" >
+            {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+        {% if messages %}
+        {% for message in messages  %}
+        <div class="container mt-5">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      </div>
+        
+        {% endfor %}
+        {% endif %}
+
+              <div class="button-container">
+                <button type="submit" class="submit-button">Send Message</button>
+            </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+{% endblock content %}
