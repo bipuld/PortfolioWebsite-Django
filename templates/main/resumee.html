@@ -42,14 +42,23 @@
         <div class="col-lg-6">
           <h3 class="resume-title">Professional Experience</h3>
           <div class="resume-item">
-           {% for job in profession  %}
+           {% comment %} {% for job in profession  %}
              <h4>{{job.title.post}}</h4>
              <h5>{{job.work_start_date}} - {% if job.work_end_date == 0 %}Present {% else %} {{job.work_end_date}}{% endif %}</h5>
              <p><em>{{job.work_location}}, Nepal </em></p>
              <ul>
              {{job.work_info|safe}}
               </ul>
-           {% endfor %}
+           {% endfor %} {% endcomment %}
+           {% for job in profession  %}
+           <h4>{{job.title.post}}</h4>
+           <h2 style="color:black; font-size:small; font-weight:bold;">{{job.company_name}}&nbsp;<strong><em>,{{job.work_location}}, Nepal </em></strong></h2>
+           {% comment %} <p></p> {% endcomment %}
+           <h5>{{job.work_start_date}} - {% if job.work_end_date == 0 %}Present {% else %} {{job.work_end_date}}{% endif %}</h5>
+           <ul>
+           {{job.work_info|safe}}
+            </ul>
+         {% endfor %}
           </div>
           <div class="resume-item">
             <h4>Communication Skills</h4>
