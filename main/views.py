@@ -8,7 +8,10 @@ from django.http import Http404
 def home(request):
     skills = SkillChoice.objects.all()
     counters = Counter.objects.all()
-    summary = Summary_sec.objects.filter(id=1).first()
+    try:
+        summary = Summary_sec.objects.get(id=1)
+    except Summary_sec.DoesNotExist:
+        summary = None
     education = EduDetail.objects.all()
     profession = Pro_detail.objects.all()
     
