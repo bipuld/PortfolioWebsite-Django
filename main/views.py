@@ -105,3 +105,5 @@ def resume_pdf(request):
         return response
 
     return HttpResponse(f'Error generating PDF: {pdf.err}', content_type='text/plain')
+
+

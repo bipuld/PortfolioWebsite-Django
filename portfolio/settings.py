@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 # from dotenv import load_dotenv
 from decouple import config, Csv
+from .jazzmin_settings import JAZZMIN_SETTINGS, JAZZMIN_UI_TWEAKS
 from django.core.management.utils import get_random_secret_key
 
 
@@ -13,7 +14,7 @@ SECRET_KEY = 'django-insecure-+oa#*%b@98v6%82=%$8*ibq*xi6bji=)cw)is2^isi8gw&aoi+
 DEBUG=True
 # DEBUG=config('DEBUG',default=True,cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -30,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'jazzmin',
+
     'ckeditor',
     'admin_interface',
     "colorfield",
@@ -154,3 +157,60 @@ CKEDITOR_CONFIGS = {
 
 
 
+# # Jazzmin settings 
+# JAZZMIN_SETTINGS = {
+#     "site_title": "Resume Admin",
+#     "site_header": "Resume Admin",
+#     "site_brand": "Resume Admin",
+#     "site_logo": "PortfolioWebsite-Django\static\assets\img\portfolio.png",  # Set your logo path
+#     "login_logo": "PortfolioWebsite-Django\static\assets\img\profile-img.jpg",  # Set your logo path
+#     "login_logo_dark": None,
+#     "site_icon": None,
+#     "welcome_sign": "Welcome to the Resume Admin",
+#     "copyright": "Resume Admin",
+#     # "search_model": ["auth.User", "main.YourModel"],
+
+#     "topmenu_links": [
+#         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+#         {"model": "auth.User"},
+#         {"app": "yourapp"},
+#     ],
+
+#     "usermenu_links": [
+#         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+#         {"model": "auth.user"}
+#     ],
+
+#     "show_sidebar": True,
+#     "navigation_expanded": True,
+#     "hide_apps": [],
+#     "hide_models": [],
+#     "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
+#     "custom_links": {
+#         "books": [{
+#             "name": "Make Messages", "url": "make_messages", "icon": "fas fa-comments", "permissions": ["books.view_book"]
+#         }]
+#     },
+#     "icons": {
+#         "auth": "fas fa-users-cog",
+#         "auth.user": "fas fa-user",
+#         "auth.Group": "fas fa-users",
+#     },
+#     "default_icon_parents": "fas fa-chevron-circle-right",
+#     "default_icon_children": "fas fa-circle",
+#     "related_modal_active": False,
+#     "custom_css": None,
+#     "custom_js": None,
+#     "show_ui_builder": False,
+# }
+
+# JAZZMIN_UI_TWEAKS = {
+#     "theme": "cosmo",
+#     "dark_mode_theme": None,
+# }
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
+JAZZMIN_UI_TWEAKS = JAZZMIN_UI_TWEAKS
+
+# Define custom error handlers
+handler404 = 'portfolio.views.custom_404'
+handler500 = 'portfolio.views.custom_500'
