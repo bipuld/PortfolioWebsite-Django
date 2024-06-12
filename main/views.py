@@ -3,7 +3,7 @@ from .models import Contact, About, Skill, SkillChoice, Counter, EduDetail, Summ
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib import messages
-
+from django.http import Http404
 # Home view
 def home(request):
     skills = SkillChoice.objects.all()
@@ -23,7 +23,11 @@ def home(request):
 
 # About view
 def about(request):
-    details = get_object_or_404(About, id=1)
+    try:
+        details = get_object_or_404(About, id=1)
+    except Http404:
+        details = None
+        
     context = {'detail': details}
     return render(request, 'main/about.html', context)
 
@@ -33,6 +37,7 @@ def facts(request):
 
 # Contact view
 def contact(request):
+    print("Hello")
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -44,7 +49,11 @@ def contact(request):
         messages.success(request, 'Your message has been sent successfully.')
         return redirect('contact')
 
-    details = get_object_or_404(About, id=1)
+
+    try:
+        details = get_object_or_404(About, id=1)
+    except Http404:
+        details = None
     context = {'detail': details}
     return render(request, 'main/contact.html', context)
 
@@ -64,7 +73,10 @@ def skills(request):
 
 # Resumee view
 def resumee(request):
-    summary = get_object_or_404(Summary_sec, id=1)
+    try:
+        summary = get_object_or_404(Summary_sec, id=1)
+    except Http404:
+        summary = None
     education = EduDetail.objects.all()
     profession = Pro_detail.objects.all()
     
@@ -77,13 +89,19 @@ def resumee(request):
 
 # Service detail view
 def service_detail(request, id):
-    service_detail = get_object_or_404(Service, id=id)
+    try:
+        service_detail = get_object_or_404(Service, id=id)
+    except Http404:
+        service_detail = None
     context = {'service_detail': service_detail}
     return render(request, 'main/service_details.html', context)
 
 # Resume PDF download view
 def resume_pdf(request):
-    summary = get_object_or_404(Summary_sec, id=1)
+    try:
+        summary = get_object_or_404(Summary_sec, id=1)
+    except Http404:
+        summary = None
     education = EduDetail.objects.all()
     profession = Pro_detail.objects.all()
     
