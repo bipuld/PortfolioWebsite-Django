@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 # from dotenv import load_dotenv
 from decouple import config, Csv
-from .jazzmin_settings import JAZZMIN_SETTINGS, JAZZMIN_UI_TWEAKS
+# from .jazzmin_settings import JAZZMIN_SETTINGS, JAZZMIN_UI_TWEAKS
 from django.core.management.utils import get_random_secret_key
 
 
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'jazzmin',
+    # 'jazzmin',
 
     'ckeditor',
     'admin_interface',
@@ -208,8 +208,8 @@ CKEDITOR_CONFIGS = {
 #     "theme": "cosmo",
 #     "dark_mode_theme": None,
 # }
-JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
-JAZZMIN_UI_TWEAKS = JAZZMIN_UI_TWEAKS
+# JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
+# JAZZMIN_UI_TWEAKS = JAZZMIN_UI_TWEAKS
 
 # Define custom error handlers
 handler404 = 'portfolio.views.custom_404'
